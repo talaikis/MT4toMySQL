@@ -1,0 +1,27 @@
+﻿Build started 16.02.2014 15:44:19.
+     1>Project "e:\Projects\MQL+DATABASES\MQLMySql 600\MQLMySQL.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching ".\Debug\MQLMySQL.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D MYSQL_WRAPPER_EXPORTS /D _VC80_UPGRADE=0x0600 /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt MQLMySQL.cpp
+         MQLMySQL.cpp
+       ManifestResourceCompile:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo".\Debug\MQLMySQL.dll.embed.manifest.res" .\Debug\MQLMySQL_manifest.rc 
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\MQLMySQL.dll" /INCREMENTAL /NOLOGO odbc32.lib odbccp32.lib libmysql.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /DEF:".\MQLMySQL.def" /MANIFEST /ManifestFile:".\Debug\MQLMySQL.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"e:\Projects\MQL+DATABASES\MQLMySql 600\Debug\MQLMySQL.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\MQLMySQL.lib" /MACHINE:X86 /DLL .\Debug\MQLMySQL.dll.embed.manifest.res
+         .\Debug\MQLMySQL.obj
+            Creating library .\Debug\MQLMySQL.lib and object .\Debug\MQLMySQL.exp
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:".\Debug\MQLMySQL.dll.embed.manifest" /manifest .\Debug\MQLMySQL.dll.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         MQLMySQL.vcxproj -> e:\Projects\MQL+DATABASES\MQLMySql 600\.\Debug\MQLMySQL.dll
+       FinalizeBuildStatus:
+         Deleting file ".\Debug\MQLMySQL.unsuccessfulbuild".
+         Touching ".\Debug\MQLMySQL.lastbuildstate".
+     1>Done Building Project "e:\Projects\MQL+DATABASES\MQLMySql 600\MQLMySQL.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:04.40

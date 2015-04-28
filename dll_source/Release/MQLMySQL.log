@@ -1,0 +1,21 @@
+﻿Build started 15.04.2014 2:22:21.
+     1>Project "e:\Projects\MQL+DATABASES\MQLMySql 600\MQLMySQL.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating ".\Release\MQLMySQL.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D MYSQL_WRAPPER_EXPORTS /D _VC80_UPGRADE=0x0600 /D _WINDLL /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Release\\" /Fd".\Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt MQLMySQL.cpp
+         MQLMySQL.cpp
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\MQLMySQL.dll" /INCREMENTAL:NO /NOLOGO odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /DEF:".\MQLMySQL.def" /MANIFEST /ManifestFile:".\Release\MQLMySQL.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"e:\Projects\MQL+DATABASES\MQLMySql 600\Release\MQLMySQL.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Release\MQLMySQL.lib" /MACHINE:X86 /DLL .\Release\MQLMySQL.obj
+            Creating library .\Release\MQLMySQL.lib and object .\Release\MQLMySQL.exp
+         MQLMySQL.vcxproj -> e:\Projects\MQL+DATABASES\MQLMySql 600\.\Release\MQLMySQL.dll
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:".\Release\MQLMySQL.dll;#2" /manifest .\Release\MQLMySQL.dll.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file ".\Release\MQLMySQL.unsuccessfulbuild".
+         Touching ".\Release\MQLMySQL.lastbuildstate".
+     1>Done Building Project "e:\Projects\MQL+DATABASES\MQLMySql 600\MQLMySQL.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.17

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="config-win.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="typelib.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="decimal.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="errmsg.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="keycache.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="m_ctype.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="m_string.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_alloc.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_attribute.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_dbug.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_dir.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_getopt.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_global.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_list.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_net.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_no_pthread.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_pthread.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_sys.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_xml.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql_com.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql_embed.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql_time.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysql_version.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysqld_ername.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="mysqld_error.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="raid.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="sql_common.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="sql_state.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="sslopt-case.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="sslopt-longopts.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="sslopt-vars.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="MQLMySQL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header files">
+      <UniqueIdentifier>{115c1e94-1341-48ae-a9e0-f1a480a64417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{95a799b5-173c-4803-9513-65aed3a13f45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MQLMySQL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="MQLMySQL.def">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MQLMySQL.mqh">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
