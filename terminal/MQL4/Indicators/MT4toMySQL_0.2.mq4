@@ -1,20 +1,14 @@
 /*
- * QUANTCONNECT.COM - Democratizing Finance, Empowering Individual.
- * Lean Algorithmic Trading Engine v2.0. Copyright 2014 QuantConnect Corporation.
+ * Created by Tadas Talaikis
+ * TALAIKIS.COM.
+ * Copyright 2015 Quantrade Corp.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, softwar
- * distributed under the License is distributed on an "AS IS" BASIS
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
- * See the License for the specific language governing permissions a
- * limitations under the Licnsense.
- *
  */
 
-#property version "1.0"
+#property version "2.0"
 
 #property indicator_chart_window
 
@@ -22,10 +16,22 @@ extern string host     = "localhost";
 extern int    port     = 3306;
 extern int    socket   = 0;
 extern string user     = "root";
-extern string password = "8h^=GP655@740u9";
+extern string password = "Hg#1F8h^=GP5@4v0u9";
 extern string dbName   = "lean";
 
+int           _period = Period();
+
 #include <MQLMySQL.mqh>
+#include <Symbols.mqh>
+
+static string   sSymbols[100];
+static int      iSymbols;
+static datetime tPreviousTime;
+//double dMA;
+int             DB; // database identifier
+int             s;
+int             i;
+string          sPeriod = "," + PeriodToStr();
 
 //+------------------------------------------------------------------+
 //| Custom indicator initialization function                         |
@@ -54,11 +60,14 @@ int deinit()
 int start()
 {
     int bars = IndicatorCounted() - 1;
-    int DB; // database identifier
+
+    // only load the Symbols once into the array "sSymbols"
+    if (iSymbols == 0)
+        iSymbols = Symbols(sSymbols);
 
     //Print (MySqlVersion());
 
-    if (Refresh() == true)
+    if (Refresh(1440) == true)
     {
         // open database connection
         Print("Connecting...");
@@ -74,23 +83,47 @@ int start()
         {
             Print("Connected! DB_ID#", DB);
         }
+        DoExport();
+        MySqlDisconnect(DB);
+        Print("MySQL disconnected. Bye.");
+    }
 
+//----
+    return(0);
+}
+//+------------------------------------------------------------------+
+
+//update base only once a bar
+bool Refresh(int _per)
+{
+    static datetime PrevBar;
+    //Print("Refresh times. PrevBar: "+PrevBar);
+
+    if (PrevBar != iTime(NULL, _per, 0))
+    {
+        PrevBar = iTime(NULL, _per, 0);
+        return(true);
+    }
+    else
+    {
+        return(false);
+    }
+}
+
+void DoExport()
+{
+    for (s = 0; s < iSymbols; s++)
+    {
         string   Query;
-        string   _symbol    = Symbol();
-        string   _period    = IntegerToString(Period());
-        string   _tablename = "equity_" + _symbol + _period;
         int      i, Cursor, Rows;
         datetime vTime;
         int      notInTime;
 
-        //drop table if exists for data cleari8ng purposes
-        //Query = "DROP TABLE IF EXISTS `equity_" + _symbol + _period + "`";
-        //MySqlExecute(DB, Query);
-
-
         //create table
-        Query = "CREATE TABLE IF NOT EXISTS `" + _tablename + "` (" +
-                "DATE_TIME timestamp NOT NULL default CURRENT_TIMESTAMP, " +
+        Query = "CREATE TABLE IF NOT EXISTS `" + sSymbols[s] + "` (" +
+                "DATE_TIME timestamp NOT NULL, " +
+                "PERIOD int NOT NULL, " +
+                "SPREAD double(15,6) NOT NULL, " +
                 "OPEN double(15,6) NOT NULL, " +
                 "HIGH double(15,6) NOT NULL, " +
                 "LOW double(15,6) NOT NULL, " +
@@ -100,66 +133,31 @@ int start()
                 ") ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=0";
         if (MySqlExecute(DB, Query))
         {
-            Print("Table equity_" + _symbol + " is created.");
+            Print("Table " + sSymbols[s] + " is created.");
         }
         else
         {
-            Print("Table equity_" + _symbol + " cannot be created. Error: ", MySqlErrorDescription);
+            Print("Table " + sSymbols[s] + " cannot be created. Error: ", MySqlErrorDescription);
         }
 
-        //check how many new bars not in database
-        Query = "SELECT date_time FROM `" + _tablename + "` ORDER BY date_time DESC LIMIT 1";
-        Print("SQL> ", Query);
-        Cursor = MySqlCursorOpen(DB, Query);
-
-        if (Cursor >= 0)
+        //for each historical bar / delay of 1 bar forlive trading!!
+        for (i = 1; i < (Bars - 1); i++)
         {
-            Rows = MySqlCursorRows(Cursor);
-            Print(Rows, " row(s) selected.");
-            if (Rows == 0)
+            if (iClose(sSymbols[s], PERIOD_D1, i) != 0)
             {
-                notInTime = Bars - 1;
-                Print("We have bars available: " + notInTime);
-            }
-            else
-            {
-                for (i = 0; i < Rows; i++)
-                {
-                    if (MySqlCursorFetchRow(Cursor))
-                    {
-                        vTime = MySqlGetFieldAsDatetime(Cursor, 0); // start_time
-                        //Comment(notInTime);
-                    }
-                    notInTime = (Time[1] - vTime) / Period();
-                    Print("Rows not in: " + notInTime);
-                }
+                //for not available data, to avoid confusion didn't used by default
+                //int shift = iBarShift(sSymbols[s], PERIOD_D1, iTime(sSymbols[s], PERIOD_D1, i), false);
+                double _spread = MarketInfo(sSymbols[s], MODE_SPREAD) * MarketInfo(sSymbols[s], MODE_POINT);
 
-                MySqlCursorClose(Cursor); // NEVER FORGET TO CLOSE CURSOR !!!
-            }
-        }
-        else
-        {
-            Print("Cursor opening failed. Error: ", MySqlErrorDescription);
-        }
-
-
-
-        //insert bars that aren't in database
-        if (notInTime >= 1)
-        {
-            //for each historical bar / delay of 1 bar forlive trading!!
-            for (i = 1; i < notInTime; i++)
-            {
-                Print("we have bars available at 5: " + notInTime);
-                //Inserting data 1 row
-
-                Query = "INSERT INTO `" + _tablename + "` (date_time, open, high, low,close, volume) VALUES (\'" +
-                        TimeToStr(Time[i], TIME_DATE | TIME_SECONDS) + "\'," +
-                        NormalizeDouble(Open[i], Digits) + "," +
-                        NormalizeDouble(Low[i], Digits) + "," +
-                        NormalizeDouble(High[i], Digits) + "," +
-                        NormalizeDouble(Close[i], Digits) + "," +
-                        Volume[i] + ")";
+                Query = "INSERT INTO `" + sSymbols[s] + "` (date_time, period, spread, open, high, low,close, volume) VALUES (\'" +
+                        TimeToStr(iTime(sSymbols[s], _period, i), TIME_DATE | TIME_MINUTES | TIME_SECONDS) + "\'," +
+                        Period() + "," +
+                        NormalizeDouble(_spread, 6) + "," +
+                        NormalizeDouble(iOpen(sSymbols[s], _period, i), 6) + "," +
+                        NormalizeDouble(iHigh(sSymbols[s], _period, i), 6) + "," +
+                        NormalizeDouble(iLow(sSymbols[s], _period, i), 6) + "," +
+                        NormalizeDouble(iClose(sSymbols[s], _period, i), 6) + "," +
+                        iVolume(sSymbols[s], _period, i) + ")";
 
                 if (MySqlExecute(DB, Query))
                 {
@@ -170,30 +168,7 @@ int start()
                     Print("Error: ", MySqlErrorDescription);
                     Print("Error with: ", Query);
                 }
-            }
+            } // end of check if there is data
         }
-
-        MySqlDisconnect(DB);
-        Print("MySQL disconnected. Bye.");
-    } // end of refresh
-
-//----
-    return(0);
-}
-//+------------------------------------------------------------------+
-
-//update base only once a bar
-bool Refresh()
-{
-    static datetime PrevBar;
-
-    if (PrevBar != iTime(NULL, Period(), 0))
-    {
-        PrevBar = iTime(NULL, Period(), 0);
-        return(true);
-    }
-    else
-    {
-        return(false);
-    }
-}
+    }         // end of for each symbol
+}             // end of do export
